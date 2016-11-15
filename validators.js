@@ -628,10 +628,13 @@ angular.module('wizehive.validators', [])
 				ctrl.$viewChangeListeners.push(check);
 				
 				function check() {
-					if (ctrl.$isEmpty(ctrl.$viewValue)) return;
+					if (ctrl.$isEmpty(ctrl.$viewValue)) {
+						ctrl.$setValidity('member', true);
+						return;
+					}
 					var valid = false;
 					angular.forEach(members, function(member) {
-						if (ctrl.$viewValue === member.id) {
+						if (ctrl.$viewValue == member.id) {
 							valid = true;
 						}
 					});
