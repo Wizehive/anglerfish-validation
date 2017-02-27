@@ -14,6 +14,12 @@ angular.module('wizehive.validators', [])
 			WHITESPACE: /(\S+)/g
 		};
 	})
+	.factory('countWords', ['regex', function(regex) {
+		return function countWords(string) {
+			var matches = string.match(regex.WHITESPACE);
+			return matches ? matches.length : 0;
+		};
+	}])
 	.directive('znValidateAlphaNumeric', ['regex', function (regex) {
 		return {
 			restrict: 'A',
@@ -422,7 +428,7 @@ angular.module('wizehive.validators', [])
 			}
 		};
 	})
-	.directive('znValidateMinwordcount', ['regex', function (regex) {
+	.directive('znValidateMinwordcount', ['countWords', function (countWords) {
 		return {
 			restrict: 'A',
 			require: 'ngModel',
@@ -430,9 +436,9 @@ angular.module('wizehive.validators', [])
 				var minWords = parseInt(attrs.znValidateMinwordcount, 10) || -1;
 
 				var validator = function (viewValue) {
-  					viewValue = viewValue.trim();
-					var numWords = !viewValue || 0 === viewValue.length ? 0 : viewValue.match(regex.WHITESPACE).length
-					if (viewValue && minWords > -1 && numWords < minWords) {
+					viewValue = viewValue || "";
+  					var numWords = countWords(viewValue);
+					if (minWords > -1 && numWords < minWords) {
 						ctrl.$setValidity('minwordcount', false);
 						return;
 					} else {
@@ -456,7 +462,7 @@ angular.module('wizehive.validators', [])
 			}
 		};
 	}])
-	.directive('znValidateMaxwordcount', ['regex', function (regex) {
+	.directive('znValidateMaxwordcount', ['countWords', function (countWords) {
 		return {
 			restrict: 'A',
 			require: 'ngModel',
@@ -464,9 +470,9 @@ angular.module('wizehive.validators', [])
 				var maxWords = parseInt(attrs.znValidateMaxwordcount, 10) || -1;
 
 				var validator = function(viewValue) {
-  					viewValue = viewValue.trim();
-					var numWords = !viewValue || 0 === viewValue.length ? 0 : viewValue.match(regex.WHITESPACE).length
-					if (viewValue && maxWords > -1 && numWords > maxWords) {
+					viewValue = viewValue || "";
+  					var numWords = countWords(viewValue);
+					if (maxWords > -1 && numWords > maxWords) {
 						ctrl.$setValidity('maxwordcount', false);
 						return;
 					} else {
