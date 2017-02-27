@@ -438,7 +438,8 @@ angular.module('wizehive.validators', [])
 				var validator = function (viewValue) {
 					viewValue = viewValue || "";
   					var numWords = countWords(viewValue);
-					if (minWords > -1 && numWords < minWords) {
+					// Empty is allowed, otherwise must meet minimum count to validate
+					if (viewValue && minWords > -1 && numWords < minWords) {
 						ctrl.$setValidity('minwordcount', false);
 						return;
 					} else {
