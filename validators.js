@@ -616,7 +616,7 @@ angular.module('wizehive.validators', [])
 						}
 
 					});
-
+					ctrl.$setViewValue(ctrl.$modelValue);
 					ctrl.$setValidity('choices', valid);
 				}
 
