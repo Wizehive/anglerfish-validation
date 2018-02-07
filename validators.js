@@ -590,7 +590,7 @@ angular.module('wizehive.validators', [])
 				if (!ctrl) return;
 
 				var choices = scope.$eval(attrs.znValidateChoices) || false;
-
+				
 				scope.$watch(attrs.ngModel, check);
 				ctrl.$viewChangeListeners.push(check);
 
@@ -616,7 +616,7 @@ angular.module('wizehive.validators', [])
 						}
 
 					});
-					ctrl.$setViewValue(ctrl.$modelValue);
+					
 					ctrl.$setValidity('choices', valid);
 				}
 
