@@ -590,7 +590,7 @@ angular.module('wizehive.validators', [])
 				if (!ctrl) return;
 
 				var choices = scope.$eval(attrs.znValidateChoices) || false;
-				var lastValue=null; // keep values between calls
+				
 				scope.$watch(attrs.ngModel, check);
 				ctrl.$viewChangeListeners.push(check);
 
@@ -616,16 +616,7 @@ angular.module('wizehive.validators', [])
 						}
 
 					});
-					//this conditionals ensures the dirty warning is shown for checkboxes
-					if (!angular.isArray(lastValue) && !angular.isArray(modelValue) && lastValue!==modelValue){
-						ctrl.$setViewValue(ctrl.$modelValue);
-						lastValue=ctrl.$modelValue;
-					} else if (angular.isArray(lastValue) && angular.isArray(modelValue) && lastValue.join('.')!==modelValue.join('.')){
-						ctrl.$setViewValue(ctrl.$modelValue);					
-						lastValue=ctrl.$modelValue;
-					} else if (lastValue==null){
-						lastValue=ctrl.$modelValue;
-					}
+					
 					ctrl.$setValidity('choices', valid);
 				}
 
