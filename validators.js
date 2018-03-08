@@ -587,15 +587,22 @@ angular.module('wizehive.validators', [])
 			restrict: 'A',
 			require: 'ngModel',
 			link: function (scope, element, attrs, ctrl) {
-				if (!ctrl) return;
+
+				if (!ctrl) {
+					return;
+				}
 
 				var choices = scope.$eval(attrs.znValidateChoices) || false;
-				
+
 				scope.$watch(attrs.ngModel, check);
 				ctrl.$viewChangeListeners.push(check);
 
 				function check() {
-					if (ctrl.$isEmpty(ctrl.$modelValue)) return;
+
+					if (ctrl.$isEmpty(ctrl.$modelValue)) {
+						return;
+					}
+
 					var valid = true,
 						modelValue = ctrl.$modelValue,
 						values = [];
@@ -616,7 +623,7 @@ angular.module('wizehive.validators', [])
 						}
 
 					});
-					
+
 					ctrl.$setValidity('choices', valid);
 				}
 
@@ -629,7 +636,9 @@ angular.module('wizehive.validators', [])
 			require: 'ngModel',
 			link: function(scope, element, attrs, ctrl) {
 
-				if (!ctrl) return;
+				if (!ctrl) {
+					return;
+				}
 
 				var members = scope[attrs.znValidateMember] || false;
 				if (!members) {
@@ -640,7 +649,11 @@ angular.module('wizehive.validators', [])
 				ctrl.$viewChangeListeners.push(check);
 
 				function check() {
-					if (ctrl.$isEmpty(ctrl.$viewValue)) return;
+
+					if (ctrl.$isEmpty(ctrl.$viewValue)) {
+						return;
+					}
+
 					var valid = false;
 					angular.forEach(members, function(member) {
 						if (ctrl.$viewValue === member.id) {
