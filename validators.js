@@ -407,9 +407,11 @@ angular.module('wizehive.validators', [])
 				var validator = function (viewValue) {
 					if (viewValue && maxLength > -1 && viewValue.length > maxLength) {
 						ctrl.$setValidity('maxlength', false);
-						return;
+						// return viewValue - potentially used by other parsers
+						return viewValue;
 					} else {
 						ctrl.$setValidity('maxlength', true);
+						// return viewValue - potentially used by other parsers
 						return viewValue;
 					}
 				};
@@ -441,9 +443,11 @@ angular.module('wizehive.validators', [])
 					// Empty is allowed, otherwise must meet minimum count to validate
 					if (viewValue && minWords > -1 && numWords < minWords) {
 						ctrl.$setValidity('minwordcount', false);
-						return;
+						// return viewValue - potentially used by other parsers
+						return viewValue;
 					} else {
 						ctrl.$setValidity('minwordcount', true);
+						// return viewValue - potentially used by other parsers
 						return viewValue;
 					}
 				};
@@ -475,9 +479,11 @@ angular.module('wizehive.validators', [])
   					var numWords = countWords(viewValue);
 					if (maxWords > -1 && numWords > maxWords) {
 						ctrl.$setValidity('maxwordcount', false);
-						return;
+						// return viewValue - potentially used by other parsers
+						return viewValue;
 					} else {
 						ctrl.$setValidity('maxwordcount', true);
+						// return viewValue - potentially used by other parsers
 						return viewValue;
 					}
 				};
