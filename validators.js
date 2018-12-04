@@ -16,7 +16,7 @@ angular.module('wizehive.validators', [])
 	})
 	.factory('countWords', ['regex', function(regex) {
 		return function countWords(string) {
-			var matches = string.match(regex.WHITESPACE);
+			var matches = string ? string.match(regex.WHITESPACE) : false;
 			return matches ? matches.length : 0;
 		};
 	}])
